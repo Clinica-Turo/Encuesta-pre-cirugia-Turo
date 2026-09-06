@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta Pre-Cirugía · Clínica Turó</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFFFFF;
+    --panel: #FFFFFF;
+    --ink: #2B2B2B;
+    --ink-soft: #6E6E6E;
+    --teal: #4FB8B6;
+    --teal-deep: #2E8482;
+    --sand: #8C8C8C;
+    --line: #E1DFDA;
+    --alert: #A5432C;
+    --radius: 3px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+  header.top{
+    text-align:left;
+    margin-bottom: 28px;
+  }
+  header.top img.logo{
+    height: 46px;
+    display:block;
+    margin-bottom: 10px;
+  }
+  header.top .subtitle{
+    font-size:14.5px;
+    color: var(--ink-soft);
+    margin-top:4px;
+  }
+
+  .progress-track{
+    height:3px;
+    background: var(--line);
+    border-radius: 2px;
+    margin: 22px 0 6px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background: var(--teal);
+    transition: width .35s ease;
+  }
+  .progress-label{
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    display:flex;
+    justify-content: space-between;
+  }
+
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px 30px;
+    margin-top: 22px;
+  }
+  .step-num{
+    font-size: 13px;
+    color: var(--sand);
+    font-weight:600;
+    margin-bottom: 6px;
+  }
+  h2.step-title{
+    font-family:'Source Serif 4', serif;
+    font-size: 21px;
+    font-weight:600;
+    margin: 0 0 18px;
+    color: var(--teal-deep);
+    line-height:1.35;
+  }
+  .hint{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin: -10px 0 18px;
+  }
+
+  .field{ margin-bottom: 20px; }
+  .field label{
+    display:block;
+    font-size: 14.5px;
+    font-weight:500;
+    margin-bottom: 7px;
+    color: var(--ink);
+  }
+  .field .opts{
+    font-weight:400;
+    color: var(--ink-soft);
+    font-size: 13px;
+    display:block;
+    margin-top:2px;
+  }
+  input[type=text], input[type=email], input[type=tel], input[type=number], input[type=time], textarea{
+    width:100%;
+    padding: 11px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 15px;
+    background: #F7F7F6;
+    color: var(--ink);
+  }
+  input:focus, textarea:focus{
+    outline: 2px solid var(--teal);
+    outline-offset: 1px;
+    background: #fff;
+  }
+  textarea{ min-height: 70px; resize: vertical; }
+
+  .yesno{ display:flex; gap:10px; }
+  .yesno button{
+    flex:1;
+    padding: 11px 0;
+    border: 1px solid var(--line);
+    background: #F7F7F6;
+    border-radius: var(--radius);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    font-weight:500;
+    color: var(--ink);
+    cursor:pointer;
+    transition: all .15s ease;
+  }
+  .yesno button:hover{ border-color: var(--teal); }
+  .yesno button.active-yes{ background: var(--teal); border-color: var(--teal); color:#fff; }
+  .yesno button.active-no{ background: var(--ink-soft); border-color: var(--ink-soft); color:#fff; }
+
+  .detail-field{
+    margin-top: 12px;
+    display:none;
+  }
+  .detail-field.show{ display:block; }
+
+  .nav-row{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    margin-top: 26px;
+  }
+  .btn{
+    padding: 12px 22px;
+    border-radius: var(--radius);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary{ background: var(--teal-deep); color:#fff; }
+  .btn-primary:hover{ background: var(--teal); }
+  .btn-ghost{ background:none; color: var(--ink-soft); }
+  .btn-ghost:hover{ color: var(--ink); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+
+  .req-error{
+    color: var(--alert);
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: 16px;
+    display:none;
+  }
+  .req-error.show{ display:block; }
+
+  /* Review screen */
+  .review-section{ margin-bottom: 22px; }
+  .review-section h3{
+    font-family:'Source Serif 4', serif;
+    font-size: 16px;
+    color: var(--teal-deep);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+  .review-row{
+    display:flex;
+    gap: 14px;
+    font-size: 14px;
+    padding: 5px 0;
+  }
+  .review-row .rlabel{ color: var(--ink-soft); flex: 0 0 55%; }
+  .review-row .rval{ flex:1; font-weight:500; }
+
+  /* Confirmation */
+  .confirm-wrap{ text-align:left; }
+  .confirm-icon{
+    width:42px; height:42px;
+    border-radius:50%;
+    background: var(--teal);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  @media print{
+    body{ background:#fff; }
+    .no-print{ display:none !important; }
+    .card{ border:none; padding:0; }
+    .wrap{ max-width:100%; padding: 0 10px; }
+  }
+
+  @media (max-width: 480px){
+    .card{ padding: 24px 18px; }
+    .wrap{ padding: 24px 14px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top no-print" id="headerBlock">
+    <img class="logo" src="data:image/png;base64,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" alt="Turó Dental">
+    <div class="subtitle">Encuesta Pre-Cirugía · Evaluación Preoperatoria</div>
+  </header>
+
+  <div class="no-print" id="progressBlock">
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-label"><span id="progressText">Paso 1 de 11</span><span id="progressPct">0%</span></div>
+  </div>
+
+  <div id="formHost"></div>
+</div>
+
+<script>
+const LOGO_SRC = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPwAAABeCAYAAAAHf3mCAAARFklEQVR4nO2df0gb9//Hn/vwgbhuXFaopJXr0pa2uWx1DXKouNJU1skyQUtFVhCxrKBoweJfRfrHcDCC+0/BygoOhwiCWFBIhU4IjlXcJjW0bEm6zTZdNg0tuDu2dfdXv3/4PT/W5t73I5fLJfd+/Fff1/e9W/PM+/V+v3698vz58+egUCiO4D+FXgCFQrEOKngKxUFQwVMoDuK/u3+QSqUKsQ5H4PV6C70EisN5Zfel3ccff1yotZQ8X375ZaGXQDGAIAj4888/VZ8rKyuDx+PJ/4Jy4KUdnkJxKoIg4OHDh9jc3EQ8HsfGxgbS6bShuXieR3l5OQ4ePIgDBw7Yxrqjgqc4FkmSEI/H8fPPP+P+/fuGxZ2NlZWVl37G8zz8fj/eeuutglkCVPAUx5FMJrG8vIzFxUVL37uysrL9RcCyLGpqanDq1Cm43W7L1kAFT3EEkiRhaWkJ0WjU1J3cKOl0Gul0GjMzMwgGgzhz5owlZj8VPKWkkYU+OzsLURQLvZysLC4uYnFxETzPo6WlJa/m/ku39NFoNG8vM8LTp08xPz+fdUw+ExUL9fX1hV6Co4hGo7YWuhLt7e15+6y8JHi7kUqlMDAwkHUsn/8xlOIllUphbGzMFNOd53kAeGFj2bt3L/bu3QsAWF9fx7NnzwBsbU5PnjzJ6XZfhuM4XLlyBS6XS/PfiUQi+Oeff9Da2qr4DDXpKSWDJEmYmpoyfBnHsiwqKytx7NgxHD58WNNlGuncnUqlsLa2hsePH2N1dVWXpZFIJLC6uora2lpNz8diMczMzGz/WUn0VPCUksDors6yLD788EP4/X7Tb8u9Xu/2F0JHRweSySTu3buHO3fuqIo/FArpEvvw8PD2n+UjcDbRU8FTip5oNIqJiQldfycUCqG6utrSgBifzwefz4fW1lbEYjHcvHkz6xdUKBQimuU72S12GSXRU8FTihZJkjA3N6d4qZuNUCiEhoYGS33f2QgEAggEAojFYhgfH9/e8c0Qu8z8/Dz27NmDxsbG7Z9RwVOKEkmSMDQ0hEQioen5YDCIc+fOFVzouwkEAhgcHMTY2BjKy8s1iz2TyWB8fJz4DMMw25eOMlTwlKIjk8lgZGRE03mdZVlcunTJNrHs2XC5XOjp6dH8fCaTQTgcJt4DMAyD/v7+l3z6VPCUokLLh12mpaUFZ8+e1eXasjta//19fX1ZA3hKXvDUj29vlNKxeZ5/adfT+mFnGAbd3d3w+XymrVOuE/Hvv//ijz/+eGHsyJEjAIA33ngjr0cGrf/+3t5eRYum5AVPKQ20ftg5jkNXV1dOwstkMvjpp5/w+PFj/Prrr7pdfRzH4fDhw7r8+WpIkoSRkRFNYg8EAorjVPAU26NV7MFgEBcuXDBkwqdSKXz//feafORqJBIJJBKJbe8Bx3E4ffq0YV+/fEGp9sWjJnaACp5ic7TubHrcWTvnXl1dxa1bt/KaQSd/AQAwlBk3NTWl6o3o7OxUFTtABU+xMVp3Nr1iL2QG3c7MuMbGRk3C/+CDD4ihuXqi8qjgKbZlbGxMdWfTK/ZkMonJycmC58TLxTB4nkdbWxvR1Pd4POjv7896rNH776eCp9iSbCWidqPnwy4IAiYnJzXNayUrKyt48OABmpubiR6jbKI3coyhgqcUJXo+7MlkEqOjo4bNd7kg5b59+15IjZVZW1sDAMO3+qIoYmJiAvF4HJcuXVK8dJRFPzIygsrKSt1iB6jgKUWIHrFHIpEX0ka1INebO3HihKYz9u5ndhbH1HPrL+/22SLkZDweD65du6ZpvmxQwVOKCo7j0NTUpOnZ6elp3Yk1ZmTQuVyu7eSYpqYmxONxxcy43YiiiP7+fqKLLZfIQSp4StHAsqymKjB6E2vymUG3U/x6cvaHh4c1+dX1QnvLUYoChmFw+fJlTbubVrHzPI9wOIzW1lZLsui8Xi8+/fRTdHZ2gmEY1eeHh4cRi8VMXQMVPKUouHjxoqZqrtPT05rE3tnZiZ6enoI0hKitrcXAwMBLqavZGB4eRjKZNO3dVPAU29PS0qLJtI1EIqpndoZhEA6HNQeq5Au3242enh60t7erPjs6OopMJmPKe6ngKbaG47gXKrYokUwmVW/jOY7D4OCgrRo+1tfXo7e3l/iMKIoYGRmBJEk5v48KnlIw1ExVhmHQ1dWlOo8gCBgdHSU+Y6Tss1UEAgF88sknxHN9Op3G1NRUzu+igqcUBEmSVEXa3d2t6TJtcnKS6Ou2s9hlvF4vuru7ic8sLi7mfJ6ngqcUhKmpKaJIeZ7XVMAiFosRw2UZhrG92GV8Pp+qeT86OpqTaU8FT7GcZDJpSudWSZJUCzn29/cXhdhlAoEAWlpaFMdFUcTS0pLh+angKZaixZTXytLSEtFK6OzstNUFnVYaGxvBcZzi+MTEBARBMDQ3FTzFUtRMea1IkoTZ2VnFcZ7nC+56y4WOjg7i+O3btw3NSwVPsQyzTHkAqr3aSGZxMeDxeIj/hvn5eUNneSp4iiWYacoDwK1btxTHQqFQUZryuzl79izRVWfkLE8FT7EEs0x5YMtSICWgNDQ0mPKeQuNyudDc3Kw4Ho1Gdc9JBU/JO2aa8gBw7949xbFQKGS7dlK5UFdXp7jLp9Np3SG3JS/4/fv3K449fvzYwpU4E0mSMDk5aeqcd+7cURw7ffq0qe8qNC6XC++++67iuN6SXSUveJIP9u+//7ZwJc5kYWHB1IKRqVRK8WjAsmxJnN13U11drTj2448/6pqr5AUPQNEkevDggcUrcRapVIqY0MKyrO455fpx2aipqdE9XzHg9XoVP8OJREKXT94Rgj9+/HjWn1tdk9xpjI2NEccvXbqke854PK44duLECd3zFQsks35jY0PzPI4QfHl5ueKY3CSQYi7RaJRoyre0tBiqHUeyyuzcEjpXjh07pji2u7klCUcIft++fYpj6+vrFq7EGQiCgImJCcVxlmVx9uxZ3fNKkqRolWmpHlPMHDhwQHFMz+WzIwQvt/PNxm+//WbhSpyB2q08qfY6CZLpWsq7OwDiZaSey2dHCJ7kmrt//76FKyl9lpeXia6iYDCYF3Hu2bPH9DnthlJCjR7XnCME73K5FG+EjQQvULIjSRKxKgvDMLhw4YLh+UnHr4qKCsPzFguvv/56znM4QvAAUFlZqTj28OFDC1dSuqiFzxrt3S7z7NkzxbGysjLD8zoJxwj+nXfeURz75ptvLFxJaaIWPlvs6aqlgmMEf+jQIcUxvcELlBfRkgnX1tZm0WooJBwjeJfLhWAwqDj+7bffWria0mJhYYFoyre3t5dUQksx4xjBA8DJkycVx77++msLV1I6qIXPchxH7Huuh91tmneyublpyjtKHUcJ3u/3K8Yki6Joeh+vUkeSJNXw2Y8++si09zld8EpRhnpyEhwleLVUw5s3b1q4muJnamoqL+GzSpBu4p8+fWrae+yK0rGJFGeyG0cJHiDnS6fTabrLa0TtVt5o+CwJUrRZqbtWSTkfpFyR3ThO8B6Phxh3TXd5dbS0djIaPquGkvmaSCRM6b1mV0hBR6Rckd04TvAAiM0J0+m0oVphTuKLL75QrRibr9h2UgDVo0eP8vJOO0BqMUXKFdmNIwXv9XqJu/zs7Cz1yysQiUSI/dc5jjPdlN/JwYMHFcdIte6KGUmSiMcnPV+ujhQ8QN7lRVE0vQ5bKRCLxVRbMnd0dOS1tZPf71ccI9W6K2ZIRT/0pgU7VvBqu/zKygqWl5ctXJG9yWQyqn3c2tvb815Tzu12K57jS9W1Sqo/X1VVpWsuxwoeUA/3vHHjBs2kw5ZJOTIyotrt1awAGzVItetyabRoRwRBIKa/kiyebDha8G63G+3t7cRnwuFwSd/+qiFJEoaGhoj+doZhDNWnM8qpU6cUx1ZWVkqqbBmphxzP87pDlh0teACor68nduoURRFDQ0OOFf3Y2Bjxkg6wviWz2+0mHscikYhla8knmUwG8/PziuN1dXW653S84AH1Tp2JRMKRop+enlatptLb21uQWvDvvfee4tjKykpJnOXVSnwHAgHdc1LBYysYp7Ozk/iM00Q/PT1N3F2ArbZORj50ZuDz+Ygx5OPj40X9u1IrFXb+/HlD81LB/z+1tbUIhULEZ5wgekmS8Pnnn6uKned5tLa2WrSq7JAuXUVRJJbbsjOCIBDXbnR3B6jgX6CpqYl4ngf+J/pSvL2XL+jUzuwcx1l6SaeEz+cjnuUXFxeLzrUqSZJqJKPR3R2ggn8Bl8uFK1euaBJ9OBwmhjsWG6lUClevXtUk9itXrlh6SUeipaWFOH7jxo2i+j3Nzc0Rfwc8z+d0jKKC34UseqW8eRlRFDE4OIhIJFL0Jn40GsXAwIBq6y27iR3Yun9Rc62Ojo4WhUWmdm/CMEzOpcKo4LPgcrnQ39+vqbDAzMwMPvvss6L0/QqCgOvXrxO7xMjYUewyWlyr4XDY1qLXckl64cKFnEuFUcEr4PF4cO3aNVXzHtjKsBsYGMBXX31VFEk3kiQhGo2ir69PUxMDO4tdpquri2iVyaK3m7tOkiTNHhEzqv5SwROQzXutCQqLi4vo6+vD9PS0bYUfi8Vw9epVTbs6sHVmtLvYga1gnL6+PuIzoihieHjYNunPgiBgaGhIVewcx6GpqcmUd/7XlFlKGJfLhZ6eHkQiEdVMMZn5+XnMz88jFAqhurq64H3PJEnC0tKSakfX3YRCoYK73vTg9XrR29uL4eFh4nMTExP44Ycf0NXVVbBqusvLy6qNO4AtF5yZX7hU8BppbGzE0aNHMTo6qrmvvCx8lmVRU1MDnuctjUpLJpNYXl4m5lJng2EYXLx4sWBBNbkQCAQ0iT6RSKCvrw/t7e2oq6uzzILJZDKYmZnRdJRiGAaXL182dW1U8Drw+XwYGBjA5OSkrgZ+6XQa6XQaMzMzYFkWlZWVOHbsGA4cOGDqF0AqlcL6+rpqvTkSHMeho6OjIOGyZqFV9MDWbj87O4vm5ua8Cl8QBNy+fVvVfJdhWRaXL182/fdABa8Tt9uNnp4exGIxjI+Pa97tZWTx7/zF8zyP8vJy7Nu3D6+++iqxF7jM2toagK3e4JlMRtV/rgbDMGhubrYsxTXf6BG9KIrbwn///fdNs8QkSUI8HsfS0pKuDSKfl6RU8AYJBAIYHBzEwsKC5rO9Eno+DPkgGAzi3LlzJdcdJhAIIBwOIxwOa/piFkURMzMz25ZYTU0Njh49iv3792v+v8nVygqFQmhqasqbpUEFnwMulwuNjY04deqULnPNLvA8j8bGxoJfKuYTj8eDwcFBTE1N6RKgbIntZKe3xu/34+nTp3jy5AkAYGNjQ9eF6G7kVtr5brhJBW8Cbrcbra2taGhowN27dzE7O6vb1LeSYDCIM2fOlLTQd+JyudDR0YGTJ08aOobJ7LTEzLTKeJ5HW1ubJRYWFbyJuN1u1NfXo76+3vANeb5gWRb19fWoqqoqOdNdK/IxbG5uzhbWGMuyOH/+vKXekFeeP3/+3LK3GUB2Y2Sjrq7O9q4jSZLw6NEj3Lt3D/fv38/J7NMLx3F4++23LXcH6uH69etZf+71eomVhXNF7625mchfvla6A2VsL/hSQxAEPHz4EL///jtSqRQePHhgivnPsiz2798Pv9+PiooKHDp0yPbRcXZAEATcvXtXd1CSEXieL/gmRQVvE+Tkm83NTU2dUCsqKlBWVoaysjLb7t7FRjKZxC+//ILvvvvONPHzPI+qqir4/X5bHKWo4CmULMiW2ObmJuLxOP766y9irAPDMDh+/Dhee+01vPnmmzhy5IgtL0Wp4CkUB0Gz5SgUCoVCKUX+D0CoxfgBLwb6AAAAAElFTkSuQmCC";
+/* ---------- DATA MODEL ---------- */
+const state = {
+  nombre:"", rut:"", edad:"", correo:"", telefono:"", emergencia:"", peso:"", estatura:"",
+
+  antecedentes_medicos: null, antecedentes_medicos_detalle:"",
+  antecedentes_qx: null, antecedentes_qx_detalle:"",
+  antecedentes_anestesia: null, antecedentes_anestesia_detalle:"",
+  antecedentes_complicaciones: null, antecedentes_complicaciones_detalle:"",
+  antecedentes_familiar: null, antecedentes_familiar_detalle:"",
+
+  alergias: null, alergias_detalle:"",
+  medicamentos: null, medicamentos_detalle:"",
+  habitos: null, habitos_detalle:"",
+  otros_antecedentes: null, otros_antecedentes_detalle:"",
+
+  ayuno_cumple: null, ayuno_detalle:"",
+  hora_solidos:"", hora_liquidos:"",
+
+  declaracion_firma:"", declaracion_fecha:""
+};
+
+/* ---------- STEP DEFINITIONS ---------- */
+// each step (page) renders one or more questions; grouped so every page shows at least 5 questions
+let currentStep = 0;
+let showingReview = false;
+let showingConfirm = false;
+
+function subQ(label, key, detailLabel){
+  return `
+    <div class="field">
+      <label>${label}</label>
+      ${yesNoDetailStep({key, detailLabel})}
+    </div>
+  `;
+}
+
+function yesNoDetailStep(opts){
+  // opts: {key, title, hint, detailPlaceholder}
+  return `
+    <div class="field">
+      <div class="yesno">
+        <button type="button" onclick="setYN('${opts.key}', true)" id="${opts.key}_yes">Sí</button>
+        <button type="button" onclick="setYN('${opts.key}', false)" id="${opts.key}_no">No</button>
+      </div>
+      <div class="req-error" id="${opts.key}_err">Por favor selecciona una opción.</div>
+      <div class="detail-field" id="${opts.key}_detailWrap">
+        <label>${opts.detailLabel || 'Especifique:'}</label>
+        <textarea id="${opts.key}_detail" placeholder="${opts.detailPlaceholder || ''}" oninput="state['${opts.key}_detalle']=this.value"></textarea>
+      </div>
+    </div>
+  `;
+}
+
+const steps = [
+  // Página 1: datos generales (8 campos)
+  {
+    title: "Datos generales",
+    render: () => `
+      <div class="field"><label>Nombre completo</label><input type="text" id="nombre" value="${state.nombre}" oninput="state.nombre=this.value"></div>
+      <div class="field"><label>RUT</label><input type="text" id="rut" value="${state.rut}" oninput="state.rut=this.value"></div>
+      <div class="field"><label>Edad</label><input type="number" id="edad" value="${state.edad}" oninput="state.edad=this.value"></div>
+      <div class="field"><label>Correo electrónico</label><input type="email" id="correo" value="${state.correo}" oninput="state.correo=this.value"></div>
+      <div class="field"><label>Teléfono de contacto</label><input type="tel" id="telefono" value="${state.telefono}" oninput="state.telefono=this.value"></div>
+      <div class="field"><label>Nombre y teléfono de contacto de emergencia</label><input type="text" id="emergencia" value="${state.emergencia}" oninput="state.emergencia=this.value"></div>
+      <div class="field"><label>Peso (kg)</label><input type="number" id="peso" value="${state.peso}" oninput="state.peso=this.value"></div>
+      <div class="field"><label>Estatura (cm)</label><input type="number" id="estatura" value="${state.estatura}" oninput="state.estatura=this.value"></div>
+    `,
+    required: () => state.nombre && state.rut && state.edad && state.telefono
+  },
+  // Página 2: antecedentes médicos, quirúrgicos y anestésicos (5 preguntas)
+  {
+    title: "Antecedentes médicos y quirúrgicos",
+    render: () =>
+      subQ("¿Tiene algún antecedente médico relevante? (hipertensión, diabetes, enfermedad cardíaca, enfermedad respiratoria, apnea del sueño, enfermedad renal, enfermedad hepática, enfermedad tiroidea, trastornos de la coagulación, epilepsia, reflujo gastroesofágico, u otra)", "antecedentes_medicos", "Indique cuál(es):") +
+      subQ("¿Ha sido operado(a) anteriormente?", "antecedentes_qx", "Especifique:") +
+      subQ("¿Ha recibido anestesia general o sedación antes?", "antecedentes_anestesia", "Especifique:") +
+      subQ("¿Ha tenido complicaciones con anestesia (náuseas severas, dificultad para despertar, reacción alérgica, etc.)?", "antecedentes_complicaciones", "Especifique:") +
+      subQ("¿Algún familiar directo ha tenido complicaciones graves con anestesia?", "antecedentes_familiar", "Especifique:"),
+    required: () => [state.antecedentes_medicos, state.antecedentes_qx, state.antecedentes_anestesia, state.antecedentes_complicaciones, state.antecedentes_familiar].every(v => v !== null)
+  },
+  // Página 3: alergias, medicamentos, hábitos, otros antecedentes y ayuno (5 preguntas + 2 horas)
+  {
+    title: "Alergias, medicamentos, hábitos y preparación",
+    render: () =>
+      subQ("¿Es alérgico(a) a algún medicamento u otro? (látex, yodo o medios de contraste, alimentos, etc.)", "alergias", "Indique cuál(es):") +
+      subQ("¿Toma algún medicamento de forma regular? (incluye anticoagulantes o antiagregantes como aspirina, warfarina, clopidogrel; suplementos, vitaminas o productos naturales)", "medicamentos", "Indique cuál(es), dosis y frecuencia:") +
+      subQ("¿Tiene alguno de los siguientes hábitos? (fuma, consume alcohol, consume otra sustancia)", "habitos", "Indique cuál(es) y frecuencia:") +
+      subQ("¿Presenta alguna de las siguientes condiciones? (posibilidad de embarazo, uso de prótesis dentales removibles/lentes de contacto/audífonos, piercings o prótesis metálicas, fiebre/tos/síntomas de resfrío en los últimos 7 días)", "otros_antecedentes", "Indique cuál(es):") +
+      subQ("¿Cumple con la preparación preoperatoria indicada? (comprendió las indicaciones de ayuno, cuenta con acompañante adulto para el día de la cirugía y su traslado posterior)", "ayuno_cumple", "Si respondió No, especifique el motivo:") +
+      `<div class="field"><label>Hora de última ingesta de alimentos sólidos antes de la cirugía</label><input type="time" value="${state.hora_solidos}" oninput="state.hora_solidos=this.value"></div>
+       <div class="field"><label>Hora de última ingesta de líquidos antes de la cirugía</label><input type="time" value="${state.hora_liquidos}" oninput="state.hora_liquidos=this.value"></div>`,
+    required: () => [state.alergias, state.medicamentos, state.habitos, state.otros_antecedentes, state.ayuno_cumple].every(v => v !== null)
+  }
+];
+
+/* ---------- GOOGLE SHEETS INTEGRATION (vía Apps Script) ---------- */
+// TODO: reemplazar con la URL real de tu Web App una vez la publiques.
+// Pasos: 1) En tu hoja: Extensiones → Apps Script.
+//        2) Pega el código doPost() que te compartí en el chat.
+//        3) Implementar → Nueva implementación → Aplicación web →
+//           "Ejecutar como: Yo" / "Acceso: Cualquier usuario" → Implementar.
+//        4) Copia la URL que termina en /exec y pégala abajo.
+const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzXP5Aee2ZxaGzp07pCeNEu-w5f5DVLCTqRNXsBGwfBOTxoIuH0nZkJmEzwYACpJ0uS/exec";
+
+function ynCombined(val, detalle){
+  if(val === true) return detalle ? `Sí — ${detalle}` : "Sí";
+  if(val === false) return detalle ? `No — ${detalle}` : "No";
+  return "—";
+}
+
+function submitToSheet(){
+  const params = new URLSearchParams();
+  params.append("nombre", state.nombre);
+  params.append("rut", state.rut);
+  params.append("edad", state.edad);
+  params.append("correo", state.correo);
+  params.append("telefono", state.telefono);
+  params.append("emergencia", state.emergencia);
+  params.append("peso", state.peso);
+  params.append("estatura", state.estatura);
+  params.append("med_general", ynCombined(state.antecedentes_medicos, state.antecedentes_medicos_detalle));
+  params.append("qx_previa", ynCombined(state.antecedentes_qx, state.antecedentes_qx_detalle));
+  params.append("anestesia", ynCombined(state.antecedentes_anestesia, state.antecedentes_anestesia_detalle));
+  params.append("complicaciones", ynCombined(state.antecedentes_complicaciones, state.antecedentes_complicaciones_detalle));
+  params.append("familiar", ynCombined(state.antecedentes_familiar, state.antecedentes_familiar_detalle));
+  params.append("alergias", ynCombined(state.alergias, state.alergias_detalle));
+  params.append("medicamentos", ynCombined(state.medicamentos, state.medicamentos_detalle));
+  params.append("habitos", ynCombined(state.habitos, state.habitos_detalle));
+  params.append("otros", ynCombined(state.otros_antecedentes, state.otros_antecedentes_detalle));
+  params.append("ayuno", ynCombined(state.ayuno_cumple, state.ayuno_detalle));
+  params.append("hora_solidos", state.hora_solidos);
+  params.append("hora_liquidos", state.hora_liquidos);
+  params.append("firma", state.declaracion_firma);
+  params.append("fecha", state.declaracion_fecha);
+
+  // Apps Script tampoco deja leer la respuesta desde el navegador (CORS),
+  // por eso "no-cors": el envío se hace igual, solo no confirmamos el 200 OK acá.
+  fetch(SHEETS_WEBAPP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params.toString()
+  }).catch(()=>{ /* silencioso: no bloquea la experiencia del paciente */ });
+}
+
+
+function setYN(key, val){
+  state[key] = val;
+  const yesBtn = document.getElementById(key+"_yes");
+  const noBtn = document.getElementById(key+"_no");
+  const wrap = document.getElementById(key+"_detailWrap");
+  const err = document.getElementById(key+"_err");
+  yesBtn.classList.toggle("active-yes", val === true);
+  noBtn.classList.toggle("active-no", val === false);
+  if(err) err.classList.remove("show");
+  if(val === true){ wrap.classList.add("show"); }
+  else{ wrap.classList.remove("show"); state[key+"_detalle"]=""; const ta=document.getElementById(key+"_detail"); if(ta) ta.value=""; }
+}
+
+/* ---------- RENDER ENGINE ---------- */
+function renderStep(){
+  const host = document.getElementById("formHost");
+  const s = steps[currentStep];
+  const pct = Math.round(((currentStep) / steps.length) * 100);
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("progressText").textContent = `Página ${currentStep+1} de ${steps.length}`;
+  document.getElementById("progressPct").textContent = pct + "%";
+
+  host.innerHTML = `
+    <div class="card">
+      <div class="step-num">SECCIÓN ${currentStep+1}</div>
+      <h2 class="step-title">${s.title}</h2>
+      ${s.hint ? `<div class="hint">${s.hint}</div>` : ""}
+      ${s.render()}
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="prevStep()" ${currentStep===0 ? "disabled":""}>Atrás</button>
+        <button class="btn btn-primary" onclick="nextStep()">${currentStep === steps.length-1 ? "Revisar respuestas" : "Continuar"}</button>
+      </div>
+    </div>
+  `;
+
+  // restore active states for yes/no if already answered
+  restoreYNVisual();
+}
+
+function restoreYNVisual(){
+  const s = steps[currentStep];
+  const html = document.getElementById("formHost").innerHTML;
+  // find keys used in this step by checking state keys with matching id existence
+  document.querySelectorAll("[id$='_yes'], [id$='_no']").forEach(btn=>{
+    const key = btn.id.replace(/_yes$|_no$/, "");
+    if(state[key] === true){
+      document.getElementById(key+"_yes")?.classList.add("active-yes");
+      document.getElementById(key+"_detailWrap")?.classList.add("show");
+      const ta = document.getElementById(key+"_detail");
+      if(ta) ta.value = state[key+"_detalle"] || "";
+    } else if(state[key] === false){
+      document.getElementById(key+"_no")?.classList.add("active-no");
+    }
+  });
+}
+
+function validateStep(){
+  const s = steps[currentStep];
+  if(s.required && !s.required()){
+    // mark every unanswered yes/no question on this page
+    let markedAny = false;
+    document.querySelectorAll("[id$='_err']").forEach(errEl=>{
+      const key = errEl.id.replace(/_err$/, "");
+      if(state[key] === null || state[key] === undefined){
+        errEl.classList.add("show");
+        markedAny = true;
+      }
+    });
+    if(markedAny) return false;
+    alert("Por favor completa los campos obligatorios antes de continuar.");
+    return false;
+  }
+  return true;
+}
+
+function nextStep(){
+  if(!validateStep()) return;
+  if(currentStep < steps.length - 1){
+    currentStep++;
+    renderStep();
+    window.scrollTo({top:0, behavior:"smooth"});
+  } else {
+    showReview();
+  }
+}
+function prevStep(){
+  if(currentStep > 0){
+    currentStep--;
+    renderStep();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+}
+
+/* ---------- REVIEW SCREEN ---------- */
+function ynText(v){ return v === true ? "Sí" : v === false ? "No" : "—"; }
+
+function showReview(){
+  showingReview = true;
+  document.getElementById("progressFill").style.width = "95%";
+  document.getElementById("progressText").textContent = "Revisión final";
+  document.getElementById("progressPct").textContent = "95%";
+
+  const host = document.getElementById("formHost");
+  host.innerHTML = `
+    <div class="card">
+      <div class="step-num">ÚLTIMO PASO</div>
+      <h2 class="step-title">Revisa tus respuestas</h2>
+      <div class="hint">Verifica que todo esté correcto antes de confirmar. El equipo de anestesia/sedoanalgesia y su médico tratante revisarán esta información antes de la cirugía.</div>
+
+      <div class="review-section">
+        <h3>Datos generales</h3>
+        <div class="review-row"><div class="rlabel">Nombre</div><div class="rval">${state.nombre||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">RUT</div><div class="rval">${state.rut||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Edad</div><div class="rval">${state.edad||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Correo</div><div class="rval">${state.correo||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Teléfono</div><div class="rval">${state.telefono||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Contacto emergencia</div><div class="rval">${state.emergencia||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Peso / Estatura</div><div class="rval">${state.peso||"—"} kg / ${state.estatura||"—"} cm</div></div>
+      </div>
+
+      <div class="review-section">
+        <h3>Antecedentes médicos</h3>
+        <div class="review-row"><div class="rlabel">Antecedente médico relevante</div><div class="rval">${ynText(state.antecedentes_medicos)}${state.antecedentes_medicos ? " — "+state.antecedentes_medicos_detalle : ""}</div></div>
+      </div>
+
+      <div class="review-section">
+        <h3>Antecedentes quirúrgicos y anestésicos</h3>
+        <div class="review-row"><div class="rlabel">Operado(a) antes</div><div class="rval">${ynText(state.antecedentes_qx)}${state.antecedentes_qx ? " — "+state.antecedentes_qx_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Anestesia/sedación previa</div><div class="rval">${ynText(state.antecedentes_anestesia)}${state.antecedentes_anestesia ? " — "+state.antecedentes_anestesia_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Complicaciones previas</div><div class="rval">${ynText(state.antecedentes_complicaciones)}${state.antecedentes_complicaciones ? " — "+state.antecedentes_complicaciones_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Complicación familiar</div><div class="rval">${ynText(state.antecedentes_familiar)}${state.antecedentes_familiar ? " — "+state.antecedentes_familiar_detalle : ""}</div></div>
+      </div>
+
+      <div class="review-section">
+        <h3>Alergias</h3>
+        <div class="review-row"><div class="rlabel">Alergias</div><div class="rval">${ynText(state.alergias)}${state.alergias ? " — "+state.alergias_detalle : ""}</div></div>
+      </div>
+
+      <div class="review-section">
+        <h3>Medicamentos</h3>
+        <div class="review-row"><div class="rlabel">Toma medicamentos</div><div class="rval">${ynText(state.medicamentos)}${state.medicamentos ? " — "+state.medicamentos_detalle : ""}</div></div>
+      </div>
+
+      <div class="review-section">
+        <h3>Hábitos</h3>
+        <div class="review-row"><div class="rlabel">Hábitos</div><div class="rval">${ynText(state.habitos)}${state.habitos ? " — "+state.habitos_detalle : ""}</div></div>
+      </div>
+
+      <div class="review-section">
+        <h3>Otros antecedentes</h3>
+        <div class="review-row"><div class="rlabel">Otros antecedentes</div><div class="rval">${ynText(state.otros_antecedentes)}${state.otros_antecedentes ? " — "+state.otros_antecedentes_detalle : ""}</div></div>
+      </div>
+
+      <div class="review-section">
+        <h3>Ayuno y preparación</h3>
+        <div class="review-row"><div class="rlabel">Cumple preparación</div><div class="rval">${ynText(state.ayuno_cumple)}${state.ayuno_cumple===false ? " — "+state.ayuno_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Última ingesta sólida</div><div class="rval">${state.hora_solidos||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Última ingesta líquida</div><div class="rval">${state.hora_liquidos||"—"}</div></div>
+      </div>
+
+      <div class="review-section">
+        <h3>Declaración del paciente</h3>
+        <div class="hint" style="margin-top:0;">Declaro que la información entregada es verídica y completa. Entiendo que ocultar o entregar información incorrecta puede afectar mi seguridad durante el procedimiento.</div>
+        <div class="field"><label>Nombre de firma (o representante legal)</label><input type="text" value="${state.declaracion_firma}" oninput="state.declaracion_firma=this.value"></div>
+        <div class="field"><label>Fecha</label><input type="text" placeholder="dd/mm/aaaa" value="${state.declaracion_fecha}" oninput="state.declaracion_fecha=this.value"></div>
+      </div>
+
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="backToForm()">Volver a editar</button>
+        <button class="btn btn-primary" onclick="confirmSubmit()">Confirmar y finalizar</button>
+      </div>
+    </div>
+  `;
+}
+
+function backToForm(){
+  showingReview = false;
+  currentStep = steps.length - 1;
+  renderStep();
+}
+
+function confirmSubmit(){
+  if(!state.declaracion_firma){
+    alert("Por favor ingresa tu nombre para firmar la declaración.");
+    return;
+  }
+  submitToSheet();
+  showingConfirm = true;
+  document.getElementById("progressBlock").style.display = "none";
+  document.getElementById("headerBlock").style.display = "none";
+
+  const host = document.getElementById("formHost");
+  host.innerHTML = `
+    <div class="card confirm-wrap no-print">
+      <img class="logo" src="${LOGO_SRC}" alt="Turó Dental" style="margin-bottom:14px;">
+      <div class="confirm-icon">✓</div>
+      <h2 class="step-title">Encuesta completada</h2>
+      <p style="color:var(--ink-soft); font-size:15px;">Gracias, ${state.nombre.split(" ")[0] || "paciente"}. Tus respuestas quedaron registradas para que el equipo de anestesia/sedoanalgesia y tu médico tratante las revisen antes de la cirugía.</p>
+      <p style="color:var(--ink-soft); font-size:14px;">Guarda o imprime una copia y entrégala en recepción el día de tu cirugía.</p>
+      <div class="nav-row" style="justify-content:flex-start; gap:12px;">
+        <button class="btn btn-primary" onclick="window.print()">Imprimir / Guardar PDF</button>
+        <button class="btn btn-ghost" onclick="restart()">Completar otra encuesta</button>
+      </div>
+    </div>
+    <div id="printSummary">${buildSummaryHTML()}</div>
+  `;
+}
+
+function buildSummaryHTML(){
+  return `
+    <div class="card">
+      <img class="logo" src="${LOGO_SRC}" alt="Turó Dental" style="margin-bottom:18px;">
+      <div class="review-section">
+        <h3>Datos generales</h3>
+        <div class="review-row"><div class="rlabel">Nombre</div><div class="rval">${state.nombre||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">RUT</div><div class="rval">${state.rut||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Edad</div><div class="rval">${state.edad||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Correo</div><div class="rval">${state.correo||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Teléfono</div><div class="rval">${state.telefono||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Contacto emergencia</div><div class="rval">${state.emergencia||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Peso / Estatura</div><div class="rval">${state.peso||"—"} kg / ${state.estatura||"—"} cm</div></div>
+      </div>
+      <div class="review-section">
+        <h3>Antecedentes médicos</h3>
+        <div class="review-row"><div class="rlabel">Antecedente médico relevante</div><div class="rval">${ynText(state.antecedentes_medicos)}${state.antecedentes_medicos ? " — "+state.antecedentes_medicos_detalle : ""}</div></div>
+      </div>
+      <div class="review-section">
+        <h3>Antecedentes quirúrgicos y anestésicos</h3>
+        <div class="review-row"><div class="rlabel">Operado(a) antes</div><div class="rval">${ynText(state.antecedentes_qx)}${state.antecedentes_qx ? " — "+state.antecedentes_qx_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Anestesia/sedación previa</div><div class="rval">${ynText(state.antecedentes_anestesia)}${state.antecedentes_anestesia ? " — "+state.antecedentes_anestesia_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Complicaciones previas</div><div class="rval">${ynText(state.antecedentes_complicaciones)}${state.antecedentes_complicaciones ? " — "+state.antecedentes_complicaciones_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Complicación familiar</div><div class="rval">${ynText(state.antecedentes_familiar)}${state.antecedentes_familiar ? " — "+state.antecedentes_familiar_detalle : ""}</div></div>
+      </div>
+      <div class="review-section">
+        <h3>Alergias</h3>
+        <div class="review-row"><div class="rlabel">Alergias</div><div class="rval">${ynText(state.alergias)}${state.alergias ? " — "+state.alergias_detalle : ""}</div></div>
+      </div>
+      <div class="review-section">
+        <h3>Medicamentos</h3>
+        <div class="review-row"><div class="rlabel">Toma medicamentos</div><div class="rval">${ynText(state.medicamentos)}${state.medicamentos ? " — "+state.medicamentos_detalle : ""}</div></div>
+      </div>
+      <div class="review-section">
+        <h3>Hábitos</h3>
+        <div class="review-row"><div class="rlabel">Hábitos</div><div class="rval">${ynText(state.habitos)}${state.habitos ? " — "+state.habitos_detalle : ""}</div></div>
+      </div>
+      <div class="review-section">
+        <h3>Otros antecedentes</h3>
+        <div class="review-row"><div class="rlabel">Otros antecedentes</div><div class="rval">${ynText(state.otros_antecedentes)}${state.otros_antecedentes ? " — "+state.otros_antecedentes_detalle : ""}</div></div>
+      </div>
+      <div class="review-section">
+        <h3>Ayuno y preparación</h3>
+        <div class="review-row"><div class="rlabel">Cumple preparación</div><div class="rval">${ynText(state.ayuno_cumple)}${state.ayuno_cumple===false ? " — "+state.ayuno_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Última ingesta sólida</div><div class="rval">${state.hora_solidos||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Última ingesta líquida</div><div class="rval">${state.hora_liquidos||"—"}</div></div>
+      </div>
+      <div class="review-section">
+        <h3>Declaración del paciente</h3>
+        <div class="review-row"><div class="rlabel">Firma</div><div class="rval">${state.declaracion_firma||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Fecha</div><div class="rval">${state.declaracion_fecha||"—"}</div></div>
+      </div>
+    </div>
+  `;
+}
+
+const YESNO_KEYS = ["antecedentes_medicos","antecedentes_qx","antecedentes_anestesia","antecedentes_complicaciones","antecedentes_familiar","alergias","medicamentos","habitos","otros_antecedentes","ayuno_cumple"];
+
+function restart(){
+  Object.keys(state).forEach(k=>{
+    if(YESNO_KEYS.includes(k)) state[k] = null;
+    else state[k] = "";
+  });
+  currentStep = 0;
+  showingReview = false; showingConfirm = false;
+  document.getElementById("progressBlock").style.display = "";
+  document.getElementById("headerBlock").style.display = "";
+  renderStep();
+}
+
+/* ---------- INIT ---------- */
+renderStep();
+</script>
+</body>
+</html>
