@@ -344,7 +344,7 @@ const steps = [
 //        3) Implementar → Nueva implementación → Aplicación web →
 //           "Ejecutar como: Yo" / "Acceso: Cualquier usuario" → Implementar.
 //        4) Copia la URL que termina en /exec y pégala abajo.
-const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzXP5Aee2ZxaGzp07pCeNEu-w5f5DVLCTqRNXsBGwfBOTxoIuH0nZkJmEzwYACpJ0uS/exec";
+const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbz14Rb_sFxbw44YUfKPsGR9XgIKnddvSkkb4hSp9wxJvuUWChgSUBoNJC4zVG0f4U3z/exec";
 
 function ynCombined(val, detalle){
   if(val === true) return detalle ? `Sí — ${detalle}` : "Sí";
@@ -495,7 +495,7 @@ function showReview(){
     <div class="card">
       <div class="step-num">ÚLTIMO PASO</div>
       <h2 class="step-title">Revisa tus respuestas</h2>
-      <div class="hint">Verifica que todo esté correcto antes de confirmar. El equipo de anestesia/sedoanalgesia y su médico tratante revisarán esta información antes de la cirugía.</div>
+      <div class="hint">Verifica que todo esté correcto antes de confirmar. <strong>Tus respuestas serán evaluadas por el equipo de anestesia/sedoanalgesia y por tu médico tratante, quienes confirmarán si estás en condiciones de realizarte la cirugía.</strong></div>
 
       <div class="review-section">
         <h3>Datos generales</h3>
@@ -585,7 +585,10 @@ function confirmSubmit(){
       <img class="logo" src="${LOGO_SRC}" alt="Turó Dental" style="margin-bottom:14px;">
       <div class="confirm-icon">✓</div>
       <h2 class="step-title">Encuesta completada</h2>
-      <p style="color:var(--ink-soft); font-size:15px;">Gracias, ${state.nombre.split(" ")[0] || "paciente"}. Tus respuestas quedaron registradas para que el equipo de anestesia/sedoanalgesia y tu médico tratante las revisen antes de la cirugía.</p>
+      <div style="background:#F4F9F9; border-left:3px solid var(--teal); padding:14px 16px; margin:14px 0; border-radius:2px;">
+        <p style="color:var(--ink); font-size:14.5px; font-weight:600; margin:0;">Tus respuestas serán evaluadas por el equipo de anestesia/sedoanalgesia y por tu médico tratante antes de la cirugía, quienes confirmarán si estás en condiciones de realizarte el procedimiento.</p>
+      </div>
+      <p style="color:var(--ink-soft); font-size:15px;">Gracias, ${state.nombre.split(" ")[0] || "paciente"}.</p>
       <p style="color:var(--ink-soft); font-size:14px;">Guarda o imprime una copia y entrégala en recepción el día de tu cirugía.</p>
       <div class="nav-row" style="justify-content:flex-start; gap:12px;">
         <button class="btn btn-primary" onclick="window.print()">Imprimir / Guardar PDF</button>
