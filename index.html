@@ -244,7 +244,7 @@
 const LOGO_SRC = "data:image/png;base64,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";
 /* ---------- DATA MODEL ---------- */
 const state = {
-  nombre:"", rut:"", edad:"", correo:"", telefono:"", emergencia:"", peso:"", estatura:"",
+  nombre:"", rut:"", edad:"", correo:"", telefono:"", emergencia_nombre:"", emergencia_telefono:"", peso:"", estatura:"",
 
   antecedentes_medicos: null, antecedentes_medicos_detalle:"",
   antecedentes_qx: null, antecedentes_qx_detalle:"",
@@ -254,7 +254,9 @@ const state = {
 
   alergias: null, alergias_detalle:"",
   medicamentos: null, medicamentos_detalle:"",
-  habitos: null, habitos_detalle:"",
+  fuma: null, fuma_detalle:"",
+  alcohol: null, alcohol_detalle:"",
+  drogas: null, drogas_detalle:"",
   otros_antecedentes: null, otros_antecedentes_detalle:"",
 
   ayuno_cumple: null, ayuno_detalle:"",
@@ -301,11 +303,12 @@ const steps = [
     title: "Datos generales",
     render: () => `
       <div class="field"><label>Nombre completo</label><input type="text" id="nombre" value="${state.nombre}" oninput="state.nombre=this.value"></div>
-      <div class="field"><label>RUT</label><input type="text" id="rut" value="${state.rut}" oninput="state.rut=this.value"></div>
+      <div class="field"><label>RUT <span class="opts">(sin puntos, con guion) o pasaporte</span></label><input type="text" id="rut" placeholder="12345678-9 o N° de pasaporte" value="${state.rut}" oninput="state.rut=this.value"></div>
       <div class="field"><label>Edad</label><input type="number" id="edad" value="${state.edad}" oninput="state.edad=this.value"></div>
       <div class="field"><label>Correo electrónico</label><input type="email" id="correo" value="${state.correo}" oninput="state.correo=this.value"></div>
       <div class="field"><label>Teléfono de contacto</label><input type="tel" id="telefono" value="${state.telefono}" oninput="state.telefono=this.value"></div>
-      <div class="field"><label>Nombre y teléfono de contacto de emergencia</label><input type="text" id="emergencia" value="${state.emergencia}" oninput="state.emergencia=this.value"></div>
+      <div class="field"><label>Nombre del contacto de emergencia</label><input type="text" id="emergencia_nombre" value="${state.emergencia_nombre}" oninput="state.emergencia_nombre=this.value"></div>
+      <div class="field"><label>Teléfono del contacto de emergencia</label><input type="tel" id="emergencia_telefono" value="${state.emergencia_telefono}" oninput="state.emergencia_telefono=this.value"></div>
       <div class="field"><label>Peso (kg)</label><input type="number" id="peso" value="${state.peso}" oninput="state.peso=this.value"></div>
       <div class="field"><label>Estatura (cm)</label><input type="number" id="estatura" value="${state.estatura}" oninput="state.estatura=this.value"></div>
     `,
@@ -318,22 +321,24 @@ const steps = [
       subQ("¿Tiene algún antecedente médico relevante? (hipertensión, diabetes, enfermedad cardíaca, enfermedad respiratoria, apnea del sueño, enfermedad renal, enfermedad hepática, enfermedad tiroidea, trastornos de la coagulación, epilepsia, reflujo gastroesofágico, u otra)", "antecedentes_medicos", "Indique cuál(es):") +
       subQ("¿Ha sido operado(a) anteriormente?", "antecedentes_qx", "Especifique:") +
       subQ("¿Ha recibido anestesia general o sedación antes?", "antecedentes_anestesia", "Especifique:") +
-      subQ("¿Ha tenido complicaciones con anestesia (náuseas severas, dificultad para despertar, reacción alérgica, etc.)?", "antecedentes_complicaciones", "Especifique:") +
-      subQ("¿Algún familiar directo ha tenido complicaciones graves con anestesia?", "antecedentes_familiar", "Especifique:"),
+      subQ("¿Ha tenido complicaciones con anestesia? (despertar prolongado, náuseas o vómitos post anestésicos, dolor de difícil manejo, trombosis venosa, alergia grave, etc.)", "antecedentes_complicaciones", "Especifique:") +
+      subQ("¿Algún familiar directo ha tenido complicaciones graves con anestesia? (ej. hipertermia maligna, alergia grave a la anestesia)", "antecedentes_familiar", "Especifique:"),
     required: () => [state.antecedentes_medicos, state.antecedentes_qx, state.antecedentes_anestesia, state.antecedentes_complicaciones, state.antecedentes_familiar].every(v => v !== null)
   },
   // Página 3: alergias, medicamentos, hábitos, otros antecedentes y ayuno (5 preguntas + 2 horas)
   {
     title: "Alergias, medicamentos, hábitos y preparación",
     render: () =>
-      subQ("¿Es alérgico(a) a algún medicamento u otro? (látex, yodo o medios de contraste, alimentos, etc.)", "alergias", "Indique cuál(es):") +
+      subQ("¿Es alérgico(a) a algún medicamento u otro agente como látex, medio de contraste, yodo, alimentos, plásticos o metales?", "alergias", "Indique cuál(es):") +
       subQ("¿Toma algún medicamento de forma regular? (incluye anticoagulantes o antiagregantes como aspirina, warfarina, clopidogrel; suplementos, vitaminas o productos naturales)", "medicamentos", "Indique cuál(es), dosis y frecuencia:") +
-      subQ("¿Tiene alguno de los siguientes hábitos? (fuma, consume alcohol, consume otra sustancia)", "habitos", "Indique cuál(es) y frecuencia:") +
+      subQ("¿Fuma?", "fuma", "¿Cuánto fuma?") +
+      subQ("¿Bebe alcohol?", "alcohol", "Frecuencia semanal y cantidad aproximada:") +
+      subQ("¿Consume alguna droga o sustancia recreativa?", "drogas", "Frecuencia y cantidad:") +
       subQ("¿Presenta alguna de las siguientes condiciones? (posibilidad de embarazo, uso de prótesis dentales removibles/lentes de contacto/audífonos, piercings o prótesis metálicas, fiebre/tos/síntomas de resfrío en los últimos 7 días)", "otros_antecedentes", "Indique cuál(es):") +
       subQ("¿Cumple con la preparación preoperatoria indicada? (comprendió las indicaciones de ayuno, cuenta con acompañante adulto para el día de la cirugía y su traslado posterior)", "ayuno_cumple", "Si respondió No, especifique el motivo:") +
       `<div class="field"><label>Hora de última ingesta de alimentos sólidos antes de la cirugía</label><input type="time" value="${state.hora_solidos}" oninput="state.hora_solidos=this.value"></div>
        <div class="field"><label>Hora de última ingesta de líquidos antes de la cirugía</label><input type="time" value="${state.hora_liquidos}" oninput="state.hora_liquidos=this.value"></div>`,
-    required: () => [state.alergias, state.medicamentos, state.habitos, state.otros_antecedentes, state.ayuno_cumple].every(v => v !== null)
+    required: () => [state.alergias, state.medicamentos, state.fuma, state.alcohol, state.drogas, state.otros_antecedentes, state.ayuno_cumple].every(v => v !== null)
   }
 ];
 
@@ -344,7 +349,7 @@ const steps = [
 //        3) Implementar → Nueva implementación → Aplicación web →
 //           "Ejecutar como: Yo" / "Acceso: Cualquier usuario" → Implementar.
 //        4) Copia la URL que termina en /exec y pégala abajo.
-const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbz14Rb_sFxbw44YUfKPsGR9XgIKnddvSkkb4hSp9wxJvuUWChgSUBoNJC4zVG0f4U3z/exec";
+const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxGEJVAgFXLUZ65fYwEEF2amyxqDh9d-BemlN6Bp2upBtV2RYOtQOOJB00NfqNfd_ZC/exec";
 
 function ynCombined(val, detalle){
   if(val === true) return detalle ? `Sí — ${detalle}` : "Sí";
@@ -359,7 +364,8 @@ function submitToSheet(){
   params.append("edad", state.edad);
   params.append("correo", state.correo);
   params.append("telefono", state.telefono);
-  params.append("emergencia", state.emergencia);
+  params.append("emergencia_nombre", state.emergencia_nombre);
+  params.append("emergencia_telefono", state.emergencia_telefono);
   params.append("peso", state.peso);
   params.append("estatura", state.estatura);
   params.append("med_general", ynCombined(state.antecedentes_medicos, state.antecedentes_medicos_detalle));
@@ -369,7 +375,9 @@ function submitToSheet(){
   params.append("familiar", ynCombined(state.antecedentes_familiar, state.antecedentes_familiar_detalle));
   params.append("alergias", ynCombined(state.alergias, state.alergias_detalle));
   params.append("medicamentos", ynCombined(state.medicamentos, state.medicamentos_detalle));
-  params.append("habitos", ynCombined(state.habitos, state.habitos_detalle));
+  params.append("fuma", ynCombined(state.fuma, state.fuma_detalle));
+  params.append("alcohol", ynCombined(state.alcohol, state.alcohol_detalle));
+  params.append("drogas", ynCombined(state.drogas, state.drogas_detalle));
   params.append("otros", ynCombined(state.otros_antecedentes, state.otros_antecedentes_detalle));
   params.append("ayuno", ynCombined(state.ayuno_cumple, state.ayuno_detalle));
   params.append("hora_solidos", state.hora_solidos);
@@ -504,7 +512,7 @@ function showReview(){
         <div class="review-row"><div class="rlabel">Edad</div><div class="rval">${state.edad||"—"}</div></div>
         <div class="review-row"><div class="rlabel">Correo</div><div class="rval">${state.correo||"—"}</div></div>
         <div class="review-row"><div class="rlabel">Teléfono</div><div class="rval">${state.telefono||"—"}</div></div>
-        <div class="review-row"><div class="rlabel">Contacto emergencia</div><div class="rval">${state.emergencia||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Contacto emergencia</div><div class="rval">${state.emergencia_nombre||"—"} ${state.emergencia_telefono ? "— "+state.emergencia_telefono : ""}</div></div>
         <div class="review-row"><div class="rlabel">Peso / Estatura</div><div class="rval">${state.peso||"—"} kg / ${state.estatura||"—"} cm</div></div>
       </div>
 
@@ -533,7 +541,9 @@ function showReview(){
 
       <div class="review-section">
         <h3>Hábitos</h3>
-        <div class="review-row"><div class="rlabel">Hábitos</div><div class="rval">${ynText(state.habitos)}${state.habitos ? " — "+state.habitos_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Fuma</div><div class="rval">${ynText(state.fuma)}${state.fuma ? " — "+state.fuma_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Alcohol</div><div class="rval">${ynText(state.alcohol)}${state.alcohol ? " — "+state.alcohol_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Drogas / sustancias</div><div class="rval">${ynText(state.drogas)}${state.drogas ? " — "+state.drogas_detalle : ""}</div></div>
       </div>
 
       <div class="review-section">
@@ -610,7 +620,7 @@ function buildSummaryHTML(){
         <div class="review-row"><div class="rlabel">Edad</div><div class="rval">${state.edad||"—"}</div></div>
         <div class="review-row"><div class="rlabel">Correo</div><div class="rval">${state.correo||"—"}</div></div>
         <div class="review-row"><div class="rlabel">Teléfono</div><div class="rval">${state.telefono||"—"}</div></div>
-        <div class="review-row"><div class="rlabel">Contacto emergencia</div><div class="rval">${state.emergencia||"—"}</div></div>
+        <div class="review-row"><div class="rlabel">Contacto emergencia</div><div class="rval">${state.emergencia_nombre||"—"} ${state.emergencia_telefono ? "— "+state.emergencia_telefono : ""}</div></div>
         <div class="review-row"><div class="rlabel">Peso / Estatura</div><div class="rval">${state.peso||"—"} kg / ${state.estatura||"—"} cm</div></div>
       </div>
       <div class="review-section">
@@ -634,7 +644,9 @@ function buildSummaryHTML(){
       </div>
       <div class="review-section">
         <h3>Hábitos</h3>
-        <div class="review-row"><div class="rlabel">Hábitos</div><div class="rval">${ynText(state.habitos)}${state.habitos ? " — "+state.habitos_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Fuma</div><div class="rval">${ynText(state.fuma)}${state.fuma ? " — "+state.fuma_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Alcohol</div><div class="rval">${ynText(state.alcohol)}${state.alcohol ? " — "+state.alcohol_detalle : ""}</div></div>
+        <div class="review-row"><div class="rlabel">Drogas / sustancias</div><div class="rval">${ynText(state.drogas)}${state.drogas ? " — "+state.drogas_detalle : ""}</div></div>
       </div>
       <div class="review-section">
         <h3>Otros antecedentes</h3>
@@ -655,7 +667,7 @@ function buildSummaryHTML(){
   `;
 }
 
-const YESNO_KEYS = ["antecedentes_medicos","antecedentes_qx","antecedentes_anestesia","antecedentes_complicaciones","antecedentes_familiar","alergias","medicamentos","habitos","otros_antecedentes","ayuno_cumple"];
+const YESNO_KEYS = ["antecedentes_medicos","antecedentes_qx","antecedentes_anestesia","antecedentes_complicaciones","antecedentes_familiar","alergias","medicamentos","fuma","alcohol","drogas","otros_antecedentes","ayuno_cumple"];
 
 function restart(){
   Object.keys(state).forEach(k=>{
