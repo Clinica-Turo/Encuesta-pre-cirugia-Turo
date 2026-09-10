@@ -260,7 +260,6 @@ const state = {
   otros_antecedentes: null, otros_antecedentes_detalle:"",
 
   ayuno_cumple: null, ayuno_detalle:"",
-  hora_solidos:"", hora_liquidos:"",
 
   declaracion_firma:"", declaracion_fecha:""
 };
@@ -325,7 +324,7 @@ const steps = [
       subQ("¿Algún familiar directo ha tenido complicaciones graves con anestesia? (ej. hipertermia maligna, alergia grave a la anestesia)", "antecedentes_familiar", "Especifique:"),
     required: () => [state.antecedentes_medicos, state.antecedentes_qx, state.antecedentes_anestesia, state.antecedentes_complicaciones, state.antecedentes_familiar].every(v => v !== null)
   },
-  // Página 3: alergias, medicamentos, hábitos, otros antecedentes y ayuno (5 preguntas + 2 horas)
+  // Página 3: alergias, medicamentos, hábitos, otros antecedentes y ayuno (5 preguntas)
   {
     title: "Alergias, medicamentos, hábitos y preparación",
     render: () =>
@@ -335,9 +334,7 @@ const steps = [
       subQ("¿Bebe alcohol?", "alcohol", "Frecuencia semanal y cantidad aproximada:") +
       subQ("¿Consume alguna droga o sustancia recreativa?", "drogas", "Frecuencia y cantidad:") +
       subQ("¿Presenta alguna de las siguientes condiciones? (posibilidad de embarazo, uso de prótesis dentales removibles/lentes de contacto/audífonos, piercings o prótesis metálicas, fiebre/tos/síntomas de resfrío en los últimos 7 días)", "otros_antecedentes", "Indique cuál(es):") +
-      subQ("¿Cumple con la preparación preoperatoria indicada? (comprendió las indicaciones de ayuno, cuenta con acompañante adulto para el día de la cirugía y su traslado posterior)", "ayuno_cumple", "Si respondió No, especifique el motivo:") +
-      `<div class="field"><label>Hora de última ingesta de alimentos sólidos antes de la cirugía</label><input type="time" value="${state.hora_solidos}" oninput="state.hora_solidos=this.value"></div>
-       <div class="field"><label>Hora de última ingesta de líquidos antes de la cirugía</label><input type="time" value="${state.hora_liquidos}" oninput="state.hora_liquidos=this.value"></div>`,
+      subQ("¿Cumple con la preparación preoperatoria indicada? (comprendió las indicaciones de ayuno, cuenta con acompañante adulto para el día de la cirugía y su traslado posterior)", "ayuno_cumple", "Si respondió No, especifique el motivo:"),
     required: () => [state.alergias, state.medicamentos, state.fuma, state.alcohol, state.drogas, state.otros_antecedentes, state.ayuno_cumple].every(v => v !== null)
   }
 ];
@@ -380,8 +377,6 @@ function submitToSheet(){
   params.append("drogas", ynCombined(state.drogas, state.drogas_detalle));
   params.append("otros", ynCombined(state.otros_antecedentes, state.otros_antecedentes_detalle));
   params.append("ayuno", ynCombined(state.ayuno_cumple, state.ayuno_detalle));
-  params.append("hora_solidos", state.hora_solidos);
-  params.append("hora_liquidos", state.hora_liquidos);
   params.append("firma", state.declaracion_firma);
   params.append("fecha", state.declaracion_fecha);
 
@@ -554,8 +549,6 @@ function showReview(){
       <div class="review-section">
         <h3>Ayuno y preparación</h3>
         <div class="review-row"><div class="rlabel">Cumple preparación</div><div class="rval">${ynText(state.ayuno_cumple)}${state.ayuno_cumple===false ? " — "+state.ayuno_detalle : ""}</div></div>
-        <div class="review-row"><div class="rlabel">Última ingesta sólida</div><div class="rval">${state.hora_solidos||"—"}</div></div>
-        <div class="review-row"><div class="rlabel">Última ingesta líquida</div><div class="rval">${state.hora_liquidos||"—"}</div></div>
       </div>
 
       <div class="review-section">
@@ -655,8 +648,6 @@ function buildSummaryHTML(){
       <div class="review-section">
         <h3>Ayuno y preparación</h3>
         <div class="review-row"><div class="rlabel">Cumple preparación</div><div class="rval">${ynText(state.ayuno_cumple)}${state.ayuno_cumple===false ? " — "+state.ayuno_detalle : ""}</div></div>
-        <div class="review-row"><div class="rlabel">Última ingesta sólida</div><div class="rval">${state.hora_solidos||"—"}</div></div>
-        <div class="review-row"><div class="rlabel">Última ingesta líquida</div><div class="rval">${state.hora_liquidos||"—"}</div></div>
       </div>
       <div class="review-section">
         <h3>Declaración del paciente</h3>
